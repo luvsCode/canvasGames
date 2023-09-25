@@ -26,10 +26,12 @@ class Game {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.player = new Player(this);
+
+    //event listeners
   }
   render(context) {
     this.player.draw(context);
-    this.player.updaate();
+    this.player.update();
   }
 }
 
@@ -37,7 +39,7 @@ window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
   canvas.width = 600;
-  canvas.height = 800;
+  canvas.height = 700;
 
   const game = new Game(canvas);
 
