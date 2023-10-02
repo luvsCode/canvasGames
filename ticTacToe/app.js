@@ -1,123 +1,112 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const tiles = Array.from(document.querySelectorAll(".tile"));
-  const resetButton = document.querySelector("#reset");
-  const xBtn = document.querySelector("xBtn");
-  const oBtn = document.querySelector("oBtn");
+let btnXO = document.querySelectorAll(".btns");
+let popupRef = document.querySelector(".popup");
+let newgameBtn = document.getElementById("newGame");
+let restartBtn = document.getElementById("restart");
+let msgRef = document.getElementById("message");
 
-  let board = ["", "", "", "", "", "", "", "", ""];
-  let currentPlayer = "X";
-  let isGameActive = true;
-  let roundWon = false;
+//let playerName = prompt("Your name: ");
+//let name = (document.querySelector(".name").innerText = playerName);
 
-  const xWon = "X won";
-  const oWon = "O won";
-  const tie = "Its a tie";
-  /*
-        Indexes within the board
-        [0] [1] [2]
-        [3] [4] [5]
-        [6] [7] [8]
-    */
+//Winning Pattern Array
+let winningPattern = [
+  [0, 1, 2],
+  [0, 3, 6],
+  [2, 5, 8],
+  [6, 7, 8],
+  [3, 4, 5],
+  [1, 4, 7],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+//Player 'X' plays first
+let xTurn = true;
+let count = 0;
 
-  const winningConditions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
+//Disable All Buttons
+const disableButtons = () => {
+  btnXO.forEach((element) => (element.disabled = true));
+  //enable popup
+  popupRef.classList.remove("hide");
+};
 
-  function handleResultValidation() {
-    for (let i = 0; i <= 7; i++) {
-      const winCondition = winningConditions[i];
-      const a = board[winCondition[0]];
-      const b = board[winCondition[1]];
-      const c = board[winCondition[2]];
-      if (a === "" || b === "" || c === "") {
-        continue;
-      }
-      if (a === b && b === c) {
-        roundWon = true;
-        break;
-      }
-    }
-  }
-
-  if (roundWon) {
-    announce(currentPlayer === "X" ? xWon : oWon);
-    isGameActive = false;
-    console.log("round won");
-    return;
-  }
-
-  if (!board.includes("")) {
-    announce(tie);
-    console.log("tie");
-  }
-
-  const announce = (type) => {
-    switch (type) {
-      case oWon:
-        console.log("O won this round");
-        break;
-      case xWon:
-        console.log("X won this round");
-        break;
-      case tie:
-        console.log("its a tie!!!");
-    }
-  };
-
-  const isValidAction = (tile) => {
-    if (tile.innerText === "X" || tile.innerText === "O") {
-      return false;
-    }
-
-    return true;
-  };
-
-  const updateBoard = (index) => {
-    board[index] = currentPlayer;
-  };
-
-  const changePlayer = () => {
-    console.log("current player was: " + currentPlayer);
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    console.log("Current player is now: " + currentPlayer);
-  };
-
-  const userAction = (tile, index) => {
-    if (isValidAction(tile) && isGameActive) {
-      tile.innerText = currentPlayer;
-      tile.classList.add(`player${currentPlayer}`);
-      updateBoard(index);
-      handleResultValidation();
-      changePlayer();
-    }
-  };
-
-  const resetBoard = () => {
-    board = ["", "", "", "", "", "", "", "", ""];
-    isGameActive = true;
-
-    if (currentPlayer === "O") {
-      changePlayer();
-      //console.log("Current player O changed to: " + currentPlayer);
-    }
-
-    tiles.forEach((tile) => {
-      tile.innerText = "";
-      tile.classList.remove("playerX");
-      tile.classList.remove("playerO");
-    });
-  };
-
-  tiles.forEach((tile, index) => {
-    tile.addEventListener("click", () => userAction(tile, index));
+//Enable all buttons (For New Game and Restart)
+const enableButtons = () => {
+  btnXO.forEach((element) => {
+    element.innerText = "";
+    element.disabled = false;
   });
+  //disable popup
+  popupRef.classList.add("hide");
+};
 
-  resetButton.addEventListener("click", resetBoard);
+//This function is executed when a player wins
+const winFunction = (letter) => {
+  disableButtons();
+  if (letter == "X") {
+    msgRef.innerHTML = "'X' Wins";
+  } else {
+    msgRef.innerHTML = "'O' Wins";
+  }
+};
+
+//Function for draw
+const drawFunction = () => {
+  disableButtons();
+  msgRef.innerHTML = "It's a Draw";
+};
+
+//New Game
+newgameBtn.addEventListener("click", () => {
+  count = 0;
+  enableButtons();
 });
+restartBtn.addEventListener("click", () => {
+  count = 0;
+  enableButtons();
+});
+
+//Win Logic
+const winChecker = () => {
+  //Loop through all win patterns
+  for (let i of winningPattern) {
+    let [element1, element2, element3] = [
+      btnXO[i[0]].innerText,
+      btnXO[i[1]].innerText,
+      btnXO[i[2]].innerText,
+    ];
+    //Check if elements are filled
+    //If 3 empty elements are same and would give win as would
+    if (element1 != "" && (element2 != "") & (element3 != "")) {
+      if (element1 == element2 && element2 == element3) {
+        //If all 3 buttons have same values then pass the value to winFunction
+        winFunction(element1);
+      }
+    }
+  }
+};
+
+//Display X/O on click
+btnXO.forEach((element) => {
+  element.addEventListener("click", () => {
+    if (xTurn) {
+      xTurn = false;
+      //Display X
+      element.innerText = "X";
+      element.disabled = true;
+    } else {
+      xTurn = true;
+      //Display Y
+      element.innerText = "O";
+      element.disabled = true;
+    }
+    //Increment count on each click
+    count += 1;
+    if (count == 9) {
+      drawFunction();
+    }
+    //Check for win on every click
+    winChecker();
+  });
+});
+//Enable Buttons and disable popup on page load
+window.onload = enableButtons;

@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-  </head>
-  <body>
-    <main class="background">
-      <section class="title">
-        <h1>Tic Tac Toe</h1>
-      </section>
-      <section class="container">
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-      </section>
-      <section class="controls">
-        <button id="xBtn">X</button>
-        <button id="reset">Reset</button>
-        <button id="oBtn">O</button>
-      </section>
-    </main>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="wrapper">
+        
+       <div class="container">
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+           <button class="btns"></button>
+       </div>
+       <button id="restart">Restart</button>
+   </div>
 
+   <div class="popup hide">
+       <p id="message">Sample Message</p>
+       <button id="newGame">New Game</button>
+   </div>
+   
+    <!-- Script -->
     <script src="app.js"></script>
-  </body>
+</body>
 </html>

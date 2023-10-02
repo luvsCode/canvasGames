@@ -2,77 +2,82 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-size: 62.5%;
+  font-family: "Raleway", sans-serif;
 }
-
-.background {
-  background: #170999;
+body {
   height: 100vh;
-  padding-top: 1px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
 }
-
-.title {
-  color: #fff;
-  text-align: center;
-  font-size: 5rem;
-  margin-top: 10%;
+html {
+  font-size: 16px;
 }
-
-.container {
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 33% 33% 33%;
-  max-width: 300px;
+.wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }
-
-.tile {
-  border: 1px solid #170999;
-  background: #fff;
-  min-width: 100px;
-  min-height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.name {
+  color: #ffffff;
   font-size: 2rem;
-  cursor: pointer;
+  padding: 1em;
+  position: relative;
+  text-align: center;
 }
-
-.controls {
+.container {
+  width: 70vmin;
+  height: 70vmin;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 2vmin;
 }
-
-.playerX {
-  color: #09c372;
-}
-
-.playerO {
-  color: #498afb;
-}
-
-.controls button {
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
+.btns {
+  background: #ffffff;
+  height: 22vmin;
+  width: 22vmin;
   border: none;
-  font-size: 3rem;
-  margin-left: 1rem;
-  cursor: pointer;
+  border-radius: 8px;
+  font-size: 12vmin;
+  color: #61ff7b;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
-
-.restart {
-  background-color: #498afb;
+#restart {
+  font-size: 1.3em;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: #0a0027;
+  color: #ffffff;
+  border: none;
+  position: relative;
+  margin: 1.5em auto 0 auto;
+  display: block;
 }
-
-#reset {
-  background: #439909;
+.popup {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1em;
+  font-size: 12vmin;
 }
-
-#xBtn,
-#oBtn {
-  background: #780794;
+#newGame {
+  font-size: 0.6em;
+  padding: 0.5em 1em;
+  background-color: #0a0027;
+  color: #ffffff;
+  border-radius: 0.2em;
+  border: none;
+}
+#message {
+  color: #ffffff;
+  text-align: center;
+  font-size: 1em;
+}
+.popup.hide {
+  display: none;
 }
